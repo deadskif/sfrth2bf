@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 cmake_minimum_required(VERSION 2.8)
-=======
-cmake_minimum_required(VERSION 2.6)
->>>>>>> 771ab7d249a245f338d89edb9a0328f119fbd705
 add_executable(sbf2c bf2c.c)
 
 if(ENABLE_BF2C)
