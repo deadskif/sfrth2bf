@@ -1,5 +1,5 @@
 project(sfrth2bf)
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.6)
 #set( CMAKE_C_COMPILER gcc )
 #set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -W -O2 -g -ggdb" )
 #set( CMAKE_CXX_COMPILER g++ )
