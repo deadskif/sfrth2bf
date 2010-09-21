@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.6)
 add_executable(sbf2c bf2c.c)
 
 if(ENABLE_BF2C)
