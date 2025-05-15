@@ -23,6 +23,22 @@
 ( n0 n1 -- n0*n1 )
 : * _MUL ; 
 
+: _DIVMOD
+( got it from https://esolangs.org/wiki/brainfuck_algorithms#Divmod )
+_> ZERO _> ZERO _> ZERO _> ZERO
+_< _< _< _< _<
+( .n. d )
+ _[ _- _> _[ _- _> _+ _> _> _] _> _[ _< _< _+ _> _> _[ _- _< _+ _> _] _> _+ _> _> _] _< _< _< _< _< _]
+ _> _[ _> _> _> _] _> _[ _[ _- _< _+ _> _] _> _+ _> _> _] _< _<
+( 0 d-n%d n%d .n/d. ) ;
+
+( n0 n1 -- n0/n1 )
+: / _DIVMOD _LEFT3  _< _< _< ;
+( n0 n1 -- n0%n1 )
+: MOD _DIVMOD _< _LEFT2 _< _< ;
+( n0 n1 -- n0%n1 n0/n1 )
+: /MOD _DIVMOD _< _LEFT2 _> _LEFT2 _< _< ;
+
 ( a0 a1 .a2. a3 -- a0 .a2. 0 a3 )
 : _LEFT _< ZERO _> _[ _< _+ _> _- _] ;
 ( a0 .a1. a2 a3 -- a0 0 .a2. a3 )
@@ -32,7 +48,9 @@
 : _LEFT2  _< _< ZERO _> _> _[ _< _< _+ _> _> _- _] ;
 ( a0 .a1. a2 a3 a4 -- a0 .0. a2 a1 a4 )
 : _RIGHT2 _> _> ZERO _< _< _[ _> _> _+ _< _< _- _] ;
-: _RIGHT3 _> _> _> ZERO _< _< _< _[ _> _> _> _+ _< _< _< _- _];
+
+: _LEFT3  _< _< _< ZERO _> _> _> _[ _< _< _< _+ _> _> _> _- _] ;
+: _RIGHT3 _> _> _> ZERO _< _< _< _[ _> _> _> _+ _< _< _< _- _] ;
 
 ( a0 a1 .a2. a3 -- a0 a2 .a1. 0 )
 : SWAP _RIGHT _< _RIGHT _> _> _LEFT2 _< ;

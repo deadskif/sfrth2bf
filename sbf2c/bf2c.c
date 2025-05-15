@@ -20,9 +20,7 @@
 #include <getopt.h>
 
 enum Errors {ERROR_OK, ERROR_ARGS, ERROR_OPEN_FILE, ERROR_NOT_RELEASED, ERROR_COMPILE};
-enum Compile {COMP_TO_C, COMP_TO_ASM, COMP_TO_ZIP};
-#define COMP_TO_ASM_NOT_RELEASED 1
-#define COMP_TO_ZIP_NOT_RELEASED 1
+enum Compile {COMP_TO_C};
 
 #define CHANGABLE_DATA 1
 #if CHANGABLE_DATA == 0
@@ -44,15 +42,11 @@ int	dump_length = 1;
 typedef	int (*compiler_t)(FILE *src, FILE *dst);
 
 int	compiler_to_c(FILE *, FILE *);
-int	compiler_to_asm(FILE *, FILE *);
-int	compiler_to_zip(FILE *, FILE *);
 int	usage(int);
 
 compiler_t	compilers[] =
 {
 	&compiler_to_c,
-	&compiler_to_asm,
-	&compiler_to_zip
 };
 
 
@@ -82,12 +76,6 @@ int	main(int argc, char *argv[])
 				break;
 			case	'L':
 				dump_length = atoi(optarg);
-				break;
-			case	'a':
-				compile = COMP_TO_ASM;
-				break;
-			case	'z':
-				compile = COMP_TO_ZIP;
 				break;
 			case	'h':
 				usage(ERROR_OK);
@@ -275,19 +263,3 @@ int	compiler_to_c(FILE *src, FILE *dst)
 	return ERROR_OK;
 }
 
-int	compiler_to_asm(FILE *src, FILE *dst)
-{
-#if defined(COMP_TO_ASM_NOT_RELEASED) && (COMP_TO_ASM_NOT_RELEASED != 0)
-	(void) src;
-	(void) dst;
-#endif /* COMP_TO_ASM_NOT_RELEASED && COMP_TO_ASM_NOT_RELEASED != 0 */
-	return ERROR_NOT_RELEASED;
-}
-int	compiler_to_zip(FILE *src, FILE *dst)
-{
-#if defined(COMP_TO_ZIP_NOT_RELEASED) && (COMP_TO_ZIP_NOT_RELEASED != 0)
-	(void) src;
-	(void) dst;
-#endif /* defined(COMP_TO_ZIP_NOT_RELEASED) && (COMP_TO_ZIP_NOT_RELEASED != 0) */
-	return ERROR_NOT_RELEASED;
-}
