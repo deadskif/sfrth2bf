@@ -17,7 +17,7 @@
 
 #include <iostream>
 
-#include "word.hpp"
+#include "word.hh"
 using namespace BFWord;
 using namespace std;
 

@@ -18,9 +18,7 @@
 #ifndef CONFIG_HPP_
 
 #define CONFIG_HPP_
-//#include <boost/shared_ptr.hpp>
 
-#include "config.h"
 namespace BFConfig {
 
 class Config

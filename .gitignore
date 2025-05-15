@@ -1,0 +1,8 @@
+*.o
+*.d
+.*.sw*
+/rules.mk
+/sbf2c/sbf2c
+/sfrth2bf/sfrth2bf
+/sfrth2bf/src/frth_lex.cc
+

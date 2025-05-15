@@ -26,17 +26,17 @@
 //#define YY_DECL BFScanner::TokenType yyFlexLexer::yylex()
 
 #include <FlexLexer.h>
-#include "word.hpp"
-#include "generator.hpp"
-#include "exception.hpp"
+#include "word.hh"
+#include "generator.hh"
+#include "exception.hh"
 
 
 
 namespace BFCompiler {
 class CompilerErrorException : public BFException::Exception {
 public:
-	CompilerErrorException(const std::string & file, unsigned lineno, const std::string & message) throw(std::length_error, std::out_of_range);
-	virtual ~CompilerErrorException() throw();
+	CompilerErrorException(const std::string & file, unsigned lineno, const std::string & message);
+	virtual ~CompilerErrorException();
 };
 
 
@@ -59,17 +59,17 @@ public:
 	Compiler();
 	~Compiler();
 
-	void compile(const char* fileName, std::istream* file, bool isDict = false) throw (CompilerErrorException);
+	void compile(const char* fileName, std::istream* file, bool isDict = false);
 
 	void generate(std::ostream *);
 protected:
-	void startDefineNewWord() throw (CompilerErrorException);
-	void stopDefineNewWord() throw (CompilerErrorException);
+	void startDefineNewWord();
+	void stopDefineNewWord();
 
-	void addWord(const char* s) throw (CompilerErrorException);
-	void addString(const char* s) throw (CompilerErrorException);
-	void addString(const std::string& s) throw (CompilerErrorException);
-	void addInt(int i) throw (CompilerErrorException);
+	void addWord(const char* s);
+	void addString(const char* s);
+	void addString(const std::string& s);
+	void addInt(int i);
 
 /*
 	void newLine() {

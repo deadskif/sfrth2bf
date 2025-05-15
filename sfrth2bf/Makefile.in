@@ -1,0 +1,9 @@
+%.cc : %.ll
+	@$(RM) $@ 
+	$(LEX.l) $< > $@
+OBJS += frth_lex.cc
+
+$(eval $(call make-binary,sfrth2bf,$(addprefix src/,compiler.o config.o frth_lex.o main.o word.o),stdc++))
+$(sfrth2bf): INCLUDE_DIRS += $(MODULE)/include
+$(sfrth2bf): CFLAGS += -DSFRTH2BF_VERSION=\"${SFRTH2BF_VERSION}\"
+#$(sfrth2bf): LINK.o = $(LINK.cc)

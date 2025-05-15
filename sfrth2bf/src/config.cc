@@ -21,7 +21,7 @@
 #include <cerrno>
 #include <cstdlib>
 
-#include <config.hpp>
+#include <config.hh>
 
 
 using namespace BFConfig;

@@ -21,7 +21,7 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 namespace BFWord {
 
@@ -40,7 +40,7 @@ class Word
 	private:
 		
 };
-typedef boost::shared_ptr<Word> WordPtr;
+typedef std::shared_ptr<Word> WordPtr;
 
 
 

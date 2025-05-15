@@ -17,8 +17,7 @@
 
 #include <iostream>
 #include <cstring>
-#include <boost/lexical_cast.hpp>
-#include "compiler.hpp"
+#include "compiler.hh"
 
 
 using namespace BFCompiler;
@@ -45,14 +44,14 @@ Compiler::Compiler() :
 Compiler::~Compiler() {
 }
 
-void Compiler::startDefineNewWord() throw (CompilerErrorException) {
+void Compiler::startDefineNewWord() {
 	// ":"
 	if(cs != CS_PROGRAM) {
 		throw CompilerErrorException(fname, lexer->lineno(), "You can't use ``:'' in word definition.");
 	}
 	cs = CS_WORD_DEF;
 }
-void Compiler::stopDefineNewWord() throw (CompilerErrorException) {
+void Compiler::stopDefineNewWord() {
 	if(cs != CS_WORD_LIST) {
 		throw CompilerErrorException(fname, lexer->lineno(), "Bad use of ``;''.");
 	}
@@ -65,7 +64,7 @@ void Compiler::stopDefineNewWord() throw (CompilerErrorException) {
 	//std::cerr << ". " << std::endl;
 }
 
-void Compiler::addWord(const char* w) throw (CompilerErrorException) {
+void Compiler::addWord(const char* w) {
 	switch(cs) {
 		case	CS_PROGRAM:
 			program.add(CWord::n(w));
@@ -80,10 +79,10 @@ void Compiler::addWord(const char* w) throw (CompilerErrorException) {
 			break;
 	};
 }
-void Compiler::addString(const char* s) throw (CompilerErrorException) {
+void Compiler::addString(const char* s) {
 	addString(std::string(s));
 }
-void Compiler::addString(const std::string& s)throw (CompilerErrorException) {
+void Compiler::addString(const std::string& s) {
 	switch(cs) {
 		case	CS_WORD_DEF:
 			throw CompilerErrorException(fname, lexer->lineno(), "Bad word name: ``\"" + s + "\"''.");
@@ -96,11 +95,11 @@ void Compiler::addString(const std::string& s)throw (CompilerErrorException) {
 			break;
 	}
 }
-void Compiler::addInt(int i) throw (CompilerErrorException) {
+void Compiler::addInt(int i) {
 	switch(cs) {
 		case	CS_WORD_DEF:
 			throw CompilerErrorException(fname, lexer->lineno(), "Bad word name: ``" + 
-					boost::lexical_cast<std::string>(i) + "''");
+					std::to_string(i) + "''");
 			break;
 		case	CS_PROGRAM:
 			program.add(Int::n(i));
@@ -128,7 +127,7 @@ void Compiler::dumpDictionary() {
 		std::cerr << std::endl;
 	};
 }
-void Compiler::compile(const char *fname, std::istream* src, bool isDict) throw (CompilerErrorException) {
+void Compiler::compile(const char *fname, std::istream* src, bool isDict) {
 	int token;
 	if(lexer) {
 		delete lexer;
@@ -173,7 +172,7 @@ void Compiler::compile(const char *fname, std::istream* src, bool isDict) throw 
 CompilerErrorException::CompilerErrorException(
 		const std::string & file,
 		unsigned lineno,
-		const std::string & m) throw(std::length_error, std::out_of_range) : Exception() 
+		const std::string & m) : Exception() 
 {
 	std::ostringstream s;
 	s << file << ":" << lineno << ": Error: " << m;
@@ -181,6 +180,6 @@ CompilerErrorException::CompilerErrorException(
 };
 
 
-CompilerErrorException::~CompilerErrorException() throw() {
+CompilerErrorException::~CompilerErrorException() {
 }
 //Compiler BFCompiler::compiler;

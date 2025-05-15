@@ -17,8 +17,8 @@
 
 #include <iostream>
 #include <FlexLexer.h>
-#include "config.hpp"
-#include "compiler.hpp"
+#include "config.hh"
+#include "compiler.hh"
 
 int main (int argc, char * argv[])
 {

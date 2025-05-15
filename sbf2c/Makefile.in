@@ -1,0 +1,1 @@
+$(eval $(call make-binary,sbf2c,bf2c.o))

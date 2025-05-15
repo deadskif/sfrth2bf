@@ -33,14 +33,13 @@ class Exception : public std::exception
 
 	protected:
 		std::string message;
-		Exception () throw(std::length_error, std::out_of_range) {};
-		Exception (const std::string & m) throw (std::length_error, std::out_of_range) : message(m) {};
+		Exception () {};
+		Exception (const std::string & m) : message(m) {};
 		
 };
 class UnrealSituationException : Exception {
 	public:
 		UnrealSituationException (const char * file, unsigned line, const char * m)
-			throw(std::length_error, std::out_of_range)
 		{
 			std::ostringstream s;
 			s << "UnrealSituationException: " << file << ":" << line << ": " << m;
