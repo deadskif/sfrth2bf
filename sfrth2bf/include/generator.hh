@@ -27,7 +27,8 @@ enum    TokenType {
         STOP_DEFINE_WORD,
         WORD,
         STRING,
-	UNKNOWN
+        BFSTRING,
+        UNKNOWN
 };
 }
 

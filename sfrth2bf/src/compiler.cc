@@ -159,6 +159,19 @@ void Compiler::compile(const char *fname, std::istream* src, bool isDict) {
 					addString(s.c_str());
 				}
 				break;
+            case    BFSTRING:
+                {
+                    std::string s(yytext + 2, lexer->YYLeng() - 3);
+                    for (const auto ch : s) {
+                        if (strchr("+-[],.<>", ch)) {
+                            char word[3] = "_X";
+                            word[1] = ch;
+                            addWord(word);
+                        }
+                    }
+
+                }
+                break;
 			case	UNKNOWN:
 				throw CompilerErrorException(fname, lexer->lineno(), "Unrecognized character: " + std::string(yytext) + ".");
 				break;

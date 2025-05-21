@@ -43,9 +43,11 @@ DIGIT	[0-9]
 
 NUM	{DIGIT}+
 
-WORD	[a-zA-Z0-9\-+/*.,~!@#$%^&_\[\]<>{}]+
+WORD	[[:graph:]]+
 
 STRING	\"[^\"]*\"
+
+BFSTRING _\"[^\"]*\"
 
 COMMENT "("[^")"\n]*")"
 
@@ -68,15 +70,21 @@ WS	[ \t\n]*
 		//compiler.stopDefineNewWord();
 		return	BFScanner::STOP_DEFINE_WORD;
 	}
-{WORD}			{
-		//compiler.addWord(YYText());
-		return	BFScanner::WORD;
-	}
+{BFSTRING}      {
+        return BFScanner::BFSTRING;
+    }
 
 {STRING}		{ 
 		//compiler.addString(s.c_str());
 		return BFScanner::STRING;
 	}
+
+{WORD}			{
+		//compiler.addWord(YYText());
+		return	BFScanner::WORD;
+	}
+
+
 
 {COMMENT}
 {WS}
