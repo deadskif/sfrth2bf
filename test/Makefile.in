@@ -1,0 +1,31 @@
+#BFFLAGS = -d -D 0 -L 16
+%.bf : %.4th $(sfrth2bf) sfrth2bf/dict.4th
+	$(sfrth2bf) -d sfrth2bf/dict.4th $< > $@
+%.c : %.bf $(sbf2c) 
+	$(sbf2c) $(BFFLAGS) -o $@ $<
+
+# make-test
+# $(1): name
+# $(2): forth code
+# $(3): output
+define make-test
+test: $$($1) test_$1
+$(call make-binary,$1,$1.o)
+$(MODULE)$1.4th:
+	echo "$2" > $$@
+.PHONY: $1_test
+test_$1: $$($1)
+	@if [ "`$$($1)`" = "$3" ]; then \
+		echo "$1 pass" ; \
+	else \
+		echo "$1 failed '`$$($1)`' != '$3'" ; \
+	fi
+endef
+
+$(eval $(call make-test,print-int0,10 .INT,10))
+$(eval $(call make-test,print-int1,0 .INT,0))
+$(eval $(call make-test,print-int2,255 .INT,255))
+$(eval $(call make-test,div0,30 5 / .INT,6))
+$(eval $(call make-test,div1,31 5 / .INT,6))
+$(eval $(call make-test,div2,31 5 MOD .INT,1))
+$(eval $(call make-test,eq0,3 3 = .INT,1))

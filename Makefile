@@ -13,6 +13,6 @@ all: rules.mk
 $(MKRULES)/rules.mk:
 	wget $(MKRULES_URL) -O $@
 
-MODULES = sbf2c sfrth2bf
+MODULES = sbf2c sfrth2bf test
 
 include $(MKRULES)/rules.mk
