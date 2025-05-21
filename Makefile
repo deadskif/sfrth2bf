@@ -13,6 +13,9 @@ all: rules.mk
 $(MKRULES)/rules.mk:
 	wget $(MKRULES_URL) -O $@
 
-MODULES = sbf2c sfrth2bf test
+MODULES = sbf2c sfrth2bf
+ifneq (,$(filter test,$(MAKECMDGOALS))$(filter clean,$(MAKECMDGOALS)))
+MODULES += test
+endif
 
 include $(MKRULES)/rules.mk
